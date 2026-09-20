@@ -24,7 +24,7 @@ and the Oracle Cloud Infrastructure Application Database are peered manually bef
 domain. To peer the VCNs manually, see [Manual VCN Peering](https://docs.oracle.com/en/cloud/paas/weblogic-cloud/user/configure-database-parameters.html#GUID-6A39A2A7-EF6C-408E-B5C7-C44089A9B134__MANUAL_VCN_PEERING).
 
 ## Before You Begin with OCI Terraform stack for WebLogic Server
-Refer to the [documentation](https://docs.oracle.com/en/cloud/paas/weblogic-cloud/user/you-begin-oracle-weblogic-cloud.html)
+Refer to the [documentation](https://docs.oracle.com/en/cloud/paas/weblogic-cloud/user/before-you-begin-oracle-weblogic-cloud.html)
 for the pre-requisite steps to use the OCI Terraform stack for WebLogic Server.
 
 ## Workspace Checkout
