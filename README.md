@@ -35,7 +35,7 @@ Review each solution for more details.
 ## Before You Begin with OCI Terraform stack for WebLogic Server
 
 Whether you use Terraform CLI, ORM or the Marketplace to create a stack, you need to perform some pre-requisites. Refer
-to the [documentation](https://docs.oracle.com/en/cloud/paas/weblogic-cloud/user/you-begin-oracle-weblogic-cloud.html) for
+to the [documentation](https://docs.oracle.com/en/cloud/paas/weblogic-cloud/user/before-you-begin-oracle-weblogic-cloud.html) for
 the pre-requisite steps to use the OCI Terraform stack for WebLogic Server.
 
 For pre-requisites specific to Terraform CLI and ORM, see their corresponding section.
