@@ -169,3 +169,9 @@ variable "profile_ocid"{
   description = "The OCID for the existing profile"
   default     = ""
 }
+
+variable "is_atp_db" {
+  type        = bool
+  description = "Indicating that ATP is selected"
+  default     = false
+}

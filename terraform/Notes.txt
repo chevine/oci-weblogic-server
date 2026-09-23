@@ -1,0 +1,27 @@
+==============================================================================================
+clear;oci vault secret list --compartment-id ocid1.compartment.oc1..aaaaaaaagzr3ea6uoge33lawdcrrwye3gwk5f6gqonhzcvo5h6y425k27dla --config-file C:\Users\chevi\.oci\config --profile DEFAULT --auth security_token
+
+clear;oci vault secret get --secret-id ocid1.vaultsecret.oc1.iad.amaaaaaa5sghbyiayy4rombikb4jdiwmazkbkqhe4jememxko7nifvlqp4pq --config-file C:\Users\chevi\.oci\config --profile DEFAULT --auth security_token --query ` 'data.\"secret-generation-content\".content' ` --raw-output 
+==============================================================================================
+oci iam domain get --domain-id ocid1.domain.oc1..aaaaaaaawvzxgn2dulgc7w54sy4dkisnomtkcgsnxumjt3j4tts5lhqmnyka --config-file C:\Users\chevi\.oci\config --profile DEFAULT --auth security_token 
+==============================================================================================
+# Define the environment variables
+export WLS_Subnet_OCID=ocid1.subnet.oc1.iad.aaaaaaaangtelheb5qhxnu2rtmebdwcbzinu4qy4y4qn24yvjjmpavwq22mq
+export OCID_of_NSG_for_Admin_Server=ocid1.networksecuritygroup.oc1.iad.aaaaaaaax5llpyxggyd2seillyaofd3zcjsdvxzvoir2lnfjknerjvdiizsa
+export OCID_of_NSG_for_Managed_Server=ocid1.networksecuritygroup.oc1.iad.aaaaaaaal3j7nb53oifmirz363rgt6mjcqfcxdwhctfoeguqr3a5wm4brzhq
+export 
+export 
+
+# Validate WebLogic subnet
+./network_validation.sh -w ${WLS_Subnet_OCID}
+
+
+# Validate WebLogic NSG
+./network_validation.sh -w ${WLS_Subnet_OCID} -a ${OCID_of_NSG_for_Admin_Server} -m ${OCID_of_NSG_for_Managed_Server}
+
+
+
+==============================================================================================
+==============================================================================================
+==============================================================================================
+==============================================================================================

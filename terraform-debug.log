@@ -1,0 +1,15 @@
+2026-09-19T20:29:28.486-0400 [INFO]  Terraform version: 1.15.8
+2026-09-19T20:29:28.487-0400 [DEBUG] using github.com/hashicorp/go-tfe v1.105.0
+2026-09-19T20:29:28.487-0400 [DEBUG] using github.com/hashicorp/hcl/v2 v2.24.0
+2026-09-19T20:29:28.487-0400 [DEBUG] using github.com/hashicorp/terraform-svchost v0.2.1
+2026-09-19T20:29:28.487-0400 [DEBUG] using github.com/zclconf/go-cty v1.18.0
+2026-09-19T20:29:28.487-0400 [INFO]  Go runtime version: go1.25.10
+2026-09-19T20:29:28.487-0400 [INFO]  CLI args: []string{"C:\\ProgramData\\chocolatey\\lib\\terraform\\tools\\terraform.exe", "version"}
+2026-09-19T20:29:28.492-0400 [DEBUG] Attempting to open CLI config file: C:\Users\chevi\AppData\Roaming\terraform.rc
+2026-09-19T20:29:28.492-0400 [DEBUG] File doesn't exist, but doesn't need to. Ignoring.
+2026-09-19T20:29:28.493-0400 [INFO]  Loading CLI configuration from C:\Users\chevi\AppData\Roaming\terraform.d\credentials.tfrc.json
+2026-09-19T20:29:28.493-0400 [DEBUG] ignoring non-existing provider search directory terraform.d/plugins
+2026-09-19T20:29:28.493-0400 [DEBUG] ignoring non-existing provider search directory C:\Users\chevi\AppData\Roaming\terraform.d\plugins
+2026-09-19T20:29:28.495-0400 [DEBUG] ignoring non-existing provider search directory C:\Users\chevi\AppData\Roaming\HashiCorp\Terraform\plugins
+2026-09-19T20:29:28.495-0400 [INFO]  CLI command args: []string{"version"}
+2026-09-19T20:29:28.634-0400 [ERROR] Checkpoint error: Get "https://checkpoint-api.hashicorp.com/v1/check/terraform?arch=amd64&os=windows&signature=0e39e93b-284d-b344-0c94-f080c142f568&version=1.15.8": read tcp [2600:4040:ab1f:5e00:4d66:dc8e:1e9d:bfa0]:52807->[2600:9000:261f:c600:4:b6df:d440:93a1]:443: wsarecv: An existing connection was forcibly closed by the remote host.

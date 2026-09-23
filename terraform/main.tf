@@ -803,3 +803,7 @@ module "provisioners" {
   mode                             = var.mode
   wlsoci_vmscripts_zip_bundle_path = var.wlsoci_vmscripts_zip_bundle_path
 }
+
+#locals {
+#  ssh_public_key = file("~/.oci/ras_dev_001/ras_dev_001.pem.pub")
+#}
