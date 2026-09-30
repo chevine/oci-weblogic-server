@@ -807,3 +807,21 @@ module "provisioners" {
 #locals {
 #  ssh_public_key = file("~/.oci/ras_dev_001/ras_dev_001.pem.pub")
 #}
+
+#resource "oci_core_network_security_group_security_rule" "bastion_ingress_security_rules" {
+#  network_security_group_id = oci_core_network_security_group.web_nsg.id
+#  direction                 = "INGRESS"
+#  protocol                  = "6" # TCP
+
+#  source      = "0.0.0.0/0"
+#  source_type = "CIDR_BLOCK"
+
+#  tcp_options {
+#    destination_port_range {
+#      min = 443
+#      max = 443
+#    }
+#  }
+
+#  description = "Allow HTTPS inbound"
+#}
