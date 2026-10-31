@@ -1,0 +1,106 @@
+==============================================================================================
+#### using-oracle-WebLogic-server-oci.pdf
+# Network Security Group rules
+page 42
+
+# Create a confidential application
+https://docs.oracle.com/en/learn/apex-identitydomains-sso/index.html#introduction
+
+ssh-keygen -t rsa -b 4096 -f ras_dev_rsa
+==============================================================================================
+==============================================================================================
+==============================================================================================
+clear;oci vault secret list --compartment-id ocid1.compartment.oc1..aaaaaaaagzr3ea6uoge33lawdcrrwye3gwk5f6gqonhzcvo5h6y425k27dla --config-file C:\Users\chevi\.oci\config --profile DEFAULT --auth security_token
+
+clear;oci vault secret get --secret-id ocid1.vaultsecret.oc1.iad.amaaaaaa5sghbyiayy4rombikb4jdiwmazkbkqhe4jememxko7nifvlqp4pq --config-file C:\Users\chevi\.oci\config --profile DEFAULT --auth security_token --query ` 'data.\"secret-generation-content\".content' ` --raw-output 
+==============================================================================================
+oci iam domain get --domain-id ocid1.domain.oc1..aaaaaaaawvzxgn2dulgc7w54sy4dkisnomtkcgsnxumjt3j4tts5lhqmnyka --config-file C:\Users\chevi\.oci\config --profile DEFAULT --auth security_token 
+==============================================================================================
+# Define the environment variables
+export Autonomous_DB_OCID=ocid1.autonomousdatabase.oc1.iad.anuwcljs5sghbyiaeuvrqqccin7p4bdwss52425ry6aufpfmlqh6velwlgxq
+export Bastion_Host_IP=10.0.1.83
+export WLS_Subnet_OCID=ocid1.subnet.oc1.iad.aaaaaaaaipnr2vy4tpbk6gj537p6oskse53nuazm4x3ytnbkjw2swhopipwa
+export Bastion_Subnet_OCID=ocid1.subnet.oc1.iad.aaaaaaaaendz7bs44w2lm7r42vzeqhtuq6rv564wlk22nv6fqd66jjbw7awq
+export Load_Balancer_Subnet_OCID=ocid1.subnet.oc1.iad.aaaaaaaandcavqpn5g7bfdbtqyjptrojvvzoifqsxtja5lrusszhhbwq3hja
+export OCID_of_NSG_for_Admin_Server=ocid1.networksecuritygroup.oc1.iad.aaaaaaaa6nnln7n7qzu2modurucy2pp5ezy5qnwgkk4z43iggkztfbnkguia
+export OCID_of_NSG_for_Managed_Server=ocid1.networksecuritygroup.oc1.iad.aaaaaaaaq5jiaj5nbzj76a4gpfj43a2ojss6c3sqma2qvuc6chicfupi5dbq
+export OCID_of_NSG_for_Load_Balancer=ocid1.networksecuritygroup.oc1.iad.aaaaaaaas25vuc7zndfsia4xu4in3fvcnucs6yvatvtp6d37mevqsp4cyrxa
+export OCID_of_NSG_for_File_System_Storage=ocid1.networksecuritygroup.oc1.iad.aaaaaaaam2i2udxyxs2l2t42xtcjqwfaut73vuw5tmcemmwgdmn7ne5335dq
+export external_WLS_LB_Port=443
+
+# Validate WebLogic subnet
+~/scripts/network_validation.sh -w ${WLS_Subnet_OCID}
+
+
+# Validate WebLogic NSG
+~/scripts/network_validation.sh -w ${WLS_Subnet_OCID} -a ${OCID_of_NSG_for_Admin_Server} -m ${OCID_of_NSG_for_Managed_Server}
+
+# Bastion subnet
+~/scripts/network_validation.sh -w ${WLS_Subnet_OCID} -b ${Bastion_Subnet_OCID}
+
+# Existing Bastion Host IP
+~/scripts/network_validation.sh -w ${WLS_Subnet_OCID} -i ${Bastion_Host_IP}
+
+# Bastion NSG
+~/scripts/network_validation.sh -w ${WLS_Subnet_OCID} -b ${Bastion_Subnet_OCID} -a ${OCID_of_NSG_for_Admin_Server} -m ${OCID_of_NSG_for_Managed_Server} -n ${OCID_of_NSG_for_Bastion_Host}
+
+
+# Existing Bastion Hosst IP with NSG:
+~/scripts/network_validation.sh -w ${WLS_Subnet_OCID} -i ${Bastion_Host_IP} -a ${OCID_of_NSG_for_Admin_Server} -m ${OCID_of_NSG_for_Managed_Server} 
+
+# Load balancer Subnet  
+./network_validation.sh -w ${WLS_Subnet_OCID} -u ${Load_Balancer_Subnet1_OCID} -l ${external_WLS_LB_Port}
+./network_validation.sh -w ${WLS_Subnet_OCID} -u ${Load_Balancer_Subnet1_OCID} -l ${external_WLS_LB_Port} -j 0.0.0.0/0
+
+Load balancer NSG
+./network_validation.sh -w ${WLS_Subnet_OCID} -u ${Load_Balancer_Subnet_OCID} -l ${external_WLS_LB_Port} -a ${OCID_of_NSG_for_Admin_Server} -m ${OCID_of_NSG_for_Managed_Server} -e ${OCID_of_NSG_for_Load_Balancer}
+
+# Public load balancer
+./network_validation.sh -w ${WLS_Subnet_OCID} -u ${Load_Balancer_Subnet_OCID} -l ${external_WLS_LB_Port} -j 0.0.0.0/0 -a ${OCID_of_NSG_for_Admin_Server} -m ${OCID_of_NSG_for_Managed_Server} -e ${OCID_of_NSG_for_Load_Balancer}
+
+# File System Storage subnet
+./network_validation.sh -w ${WLS_Subnet_OCID} -f ${File_System_Storage_Subnet_OCID}
+
+# File System Storage NSG
+./network_validation.sh -w ${WLS_Subnet_OCID} -a ${OCID_of_NSG_for_Admin_Server} -m ${OCID_of_NSG_for_Managed_Server} -e ${OCID_of_NSG_for_File_System_Storage}
+
+# JRF domain with an Autonomous Database
+./network_validation.sh -w ${WLS_Subnet_OCID} -t ${Autonomous_DB_OCID} -a ${OCID_of_NSG_for_Admin_Server} -m ${OCID_of_NSG_for_Managed_Server}
+
+#
+
+#
+
+
+
+
+
+
+==============================================================================================
+https://<load-balancer-ip-or-dns>:<external_WLS_LB_Port>/console
+
+sample_application = "https://129.153.40.223/sample-app"
+sample_application_protected_by_idcs = ""
+ssh_command = "ssh -i <privateKey> -o ProxyCommand=\"ssh -i <privateKey> -W %h:%p -p 22 opc@157.151.156.184\" -p 22 opc@<wls_vm_private_ip>"
+ssh_command_with_dynamic_port_forwarding = "ssh -i <privatekey> -C -D <local-port> opc@157.151.156.184"
+virtual_cloud_network_cidr = "10.0.0.0/16"
+virtual_cloud_network_id = "ocid1.vcn.oc1.iad.amaaaaaa5sghbyiafwcvii7jguws625bjqykdhzynmi67jn7s7zw5syb5mza"
+wallet_password = ""
+webLogic_server_domain_configuration = "Production Mode"
+weblogic_agent_configuration_id = ""
+weblogic_instances = "[\"{ Instance Id:ocid1.instance.oc1.iad.anuwcljs5sghbyicwnyns4c3tu5azahk5s3nlnlimw5u7k5h3bs7zzqqcauq, Instance name:RASDEV002-wls-0, Availability Domain:oLIC:US-ASHBURN-AD-1, Instance Shape:VM.Standard.E4.Flex, Private IP:10.0.2.175, Public IP: }\"]"
+weblogic_log_group_id = ""
+weblogic_log_id = ""
+weblogic_server_administration_console = "https://10.0.2.175:7002/console"
+weblogic_version = "12.2.1.4 Enterprise Edition (JRF with ATP DB)"
+==============================================================================================
+ERROR: Port 9071 is not open for access by WLS Subnet CIDR [10.0.2.0/24] 
+in WLS Subnet [ocid1.subnet.oc1.iad.aaaaaaaaipnr2vy4tpbk6gj537p6oskse53nuazm4x3ytnbkjw2swhopipwa]. 
+Fix the network validation script errors and re-run the script in the cloud shell
+
+
+The validation script checked whether machines in your WebLogic subnet (10.0.2.0/24) 
+can reach port 9071 on a target resource (typically an OCI Load Balancer, DB, Coherence node, 
+or another WebLogic component), and it found that the required ingress rule is missing.
+==============================================================================================
+==============================================================================================

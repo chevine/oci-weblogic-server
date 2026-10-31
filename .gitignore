@@ -42,3 +42,6 @@ Temporary Items
 .apdisk
 
 env_vars*
+
+*.log
+terraform-debug.log
