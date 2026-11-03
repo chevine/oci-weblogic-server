@@ -143,28 +143,28 @@ variable "profile_name" {
   description = "The name specified by user for creating the profile"
   default     = ""
 }
-variable "profile_compartment_id"{
+variable "profile_compartment_id" {
   type        = string
   description = "The compartment Id to create the profile"
   default     = ""
 }
 
-variable "enable_osmh"{
+variable "enable_osmh" {
   type        = bool
   description = "Indicating that OSMH is enabled"
   default     = true
 }
-variable "create_profile"{
+variable "create_profile" {
   type        = bool
   description = "To check if new profile is to be created"
   default     = false
 }
-variable "select_existing_profile"{
+variable "select_existing_profile" {
   type        = bool
   description = "To check if existing profile is to be used"
   default     = false
 }
-variable "profile_ocid"{
+variable "profile_ocid" {
   type        = string
   description = "The OCID for the existing profile"
   default     = ""

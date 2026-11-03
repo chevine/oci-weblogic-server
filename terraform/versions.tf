@@ -9,7 +9,7 @@ terraform {
       version = ">= 9.2.0"
     }
     random = {
-      version = "~> 3.7.2"
+      version = ">= 3.7.2"
     }
     template = {
       version = "~> 2.2.0"

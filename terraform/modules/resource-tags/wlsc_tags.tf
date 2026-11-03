@@ -2,7 +2,8 @@
 # Licensed under the Universal Permissive License v1.0 as shown at https://oss.oracle.com/licenses/upl.
 
 locals {
-  system_defined_dg_tag_value = format("%s-%s", var.service_name, substr(random_uuid.uuid_1.result, 0, 8))
+  #system_defined_dg_tag_value = format("%s-%s", var.service_name, substr(random_uuid.uuid_1.result, 0, 8))
+  system_defined_dg_tag_value = format("%s-%s", var.service_name, substr("1234567890", 0, 8))
   system_tag_value            = { "wlsoci-${var.service_name}-system-tag" : local.system_defined_dg_tag_value }
 }
 

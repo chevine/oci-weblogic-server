@@ -228,18 +228,18 @@ module "policies" {
     defined_tags  = local.defined_tags
     freeform_tags = local.free_form_tags
   }
-  atp_db                           = local.atp_db
-  oci_db                           = local.oci_db
-  vcn_id                           = element(concat(module.network-vcn[*].vcn_id, [""]), 0)
-  wls_existing_vcn_id              = var.wls_existing_vcn_id
-  is_idcs_selected                 = var.is_idcs_selected
-  idcs_client_secret_id            = var.idcs_client_secret_id
-  use_oci_logging                  = var.use_oci_logging
-  use_apm_service                  = local.use_apm_service
-  apm_domain_compartment_id        = local.apm_domain_compartment_id
-  use_autoscaling                  = var.use_autoscaling
-  enable_osmh                      = var.enable_osmh
-  profile_compartment_id           = local.profile_compartment_id
+  atp_db                    = local.atp_db
+  oci_db                    = local.oci_db
+  vcn_id                    = element(concat(module.network-vcn[*].vcn_id, [""]), 0)
+  wls_existing_vcn_id       = var.wls_existing_vcn_id
+  is_idcs_selected          = var.is_idcs_selected
+  idcs_client_secret_id     = var.idcs_client_secret_id
+  use_oci_logging           = var.use_oci_logging
+  use_apm_service           = local.use_apm_service
+  apm_domain_compartment_id = local.apm_domain_compartment_id
+  use_autoscaling           = var.use_autoscaling
+  enable_osmh               = var.enable_osmh
+  profile_compartment_id    = local.profile_compartment_id
 
   ocir_auth_token_id               = var.ocir_auth_token_id
   add_fss                          = var.add_fss
@@ -492,8 +492,8 @@ module "validators" {
 
 module "fss" {
   depends_on = [module.network-validation]
-  source = "./modules/fss"
-  count  = var.add_fss ? 1 : 0
+  source     = "./modules/fss"
+  count      = var.add_fss ? 1 : 0
 
   compartment_id      = var.compartment_ocid
   availability_domain = local.fss_availability_domain
@@ -515,8 +515,8 @@ module "fss" {
 
 module "load-balancer" {
   depends_on = [module.network-validation]
-  source = "./modules/lb/loadbalancer"
-  count  = (local.add_load_balancer && var.existing_load_balancer_id == "") ? 1 : 0
+  source     = "./modules/lb/loadbalancer"
+  count      = (local.add_load_balancer && var.existing_load_balancer_id == "") ? 1 : 0
 
   compartment_id           = local.network_compartment_id
   lb_reserved_public_ip_id = compact([var.lb_reserved_public_ip_id])
@@ -536,8 +536,8 @@ module "load-balancer" {
 
 module "rms-private-endpoint" {
   depends_on = [module.network-validation]
-  source = "./modules/rms-private-endpoint"
-  count  = local.is_rms_private_endpoint_required && local.add_new_rms_private_endpoint ? 1 : 0
+  source     = "./modules/rms-private-endpoint"
+  count      = local.is_rms_private_endpoint_required && local.add_new_rms_private_endpoint ? 1 : 0
 
   vcn_id                     = local.vcn_id
   compartment_id             = local.network_compartment_id
@@ -553,8 +553,8 @@ module "rms-private-endpoint" {
 
 module "observability-common" {
   depends_on = [module.network-validation]
-  source = "./modules/observability/common"
-  count  = var.use_oci_logging ? 1 : 0
+  source     = "./modules/observability/common"
+  count      = var.use_oci_logging ? 1 : 0
 
   compartment_id      = var.compartment_ocid
   service_prefix_name = local.service_name_prefix
@@ -563,8 +563,8 @@ module "observability-common" {
 
 module "observability-autoscaling" {
   depends_on = [module.network-validation]
-  source = "./modules/observability/autoscaling"
-  count  = var.use_autoscaling ? 1 : 0
+  source     = "./modules/observability/autoscaling"
+  count      = var.use_autoscaling ? 1 : 0
 
   compartment_id        = var.compartment_ocid
   metric_compartment_id = local.apm_domain_compartment_id
@@ -594,74 +594,74 @@ module "observability-autoscaling" {
   }
 }
 
-module "observability-osmh"{
-  depends_on          = [module.network-validation]
-  source              = "./modules/observability/osmh"
-  count               = local.create_profile ? 1 : 0
-  tenancy_id          = var.tenancy_ocid
-  display_name        = local.profile_name
-  compartment_id      = local.profile_compartment_id
+module "observability-osmh" {
+  depends_on     = [module.network-validation]
+  source         = "./modules/observability/osmh"
+  count          = local.create_profile ? 1 : 0
+  tenancy_id     = var.tenancy_ocid
+  display_name   = local.profile_name
+  compartment_id = local.profile_compartment_id
 }
 
 module "compute" {
-  depends_on             = [module.network-validation]
-  source                 = "./modules/compute/wls_compute"
-  add_loadbalancer       = local.add_load_balancer
-  is_lb_private          = var.is_lb_private
-  load_balancer_id       = local.add_load_balancer ? (var.existing_load_balancer_id != "" ? var.existing_load_balancer_id : element(coalescelist(module.load-balancer[*].wls_loadbalancer_id, [""]), 0)) : ""
-  assign_public_ip       = local.assign_weblogic_public_ip
-  availability_domain    = local.wls_availability_domain
-  compartment_id         = var.compartment_ocid
-  instance_image_id      = local.vm_instance_image_id
-  is_ucm_image           = var.terms_and_conditions
-  instance_shape         = local.instance_shape
-  network_compartment_id = var.network_compartment_id
-  wls_subnet_cidr        = local.wls_subnet_cidr
-  subnet_id              = var.wls_subnet_id != "" ? var.wls_subnet_id : local.assign_weblogic_public_ip ? element(concat(module.network-wls-public-subnet[*].subnet_id, [""]), 0) : element(concat(module.network-wls-private-subnet[*].subnet_id, [""]), 0)
-  wls_subnet_id          = var.wls_subnet_id
-  region                 = var.region
-  ssh_public_key         = var.ssh_public_key
-  compute_nsg_ids        = local.compute_nsg_ids
-  num_ads                = local.num_ads
-  tenancy_id                = var.tenancy_ocid
-  tf_script_version         = var.tf_script_version
-  use_regional_subnet       = local.use_regional_subnet
-  wls_14c_jdk_version       = var.wls_14c_jdk_version
-  wls_14120_jdk_version     = var.wls_14120_jdk_version
-  wls_15110_jdk_version     = var.wls_15110_jdk_version
-  wls_admin_user            = local.wls_admin_user
-  wls_admin_password_id     = var.wls_admin_password_id
-  wls_admin_server_name     = format("%s_adminserver", local.service_name_prefix)
-  wls_ms_server_name        = format("%s_server_", local.service_name_prefix)
-  wls_nm_port               = var.wls_nm_port
-  wls_ms_port               = var.wls_ms_port
-  wls_ms_ssl_port           = var.wls_ms_ssl_port
-  wls_ms_extern_ssl_port    = var.wls_ms_extern_ssl_port
-  wls_ms_extern_port        = var.wls_ms_extern_port
-  wls_cluster_name          = format("%s_cluster", local.service_name_prefix)
-  wls_machine_name          = format("%s_machine_", local.service_name_prefix)
-  wls_extern_admin_port     = var.wls_extern_admin_port
-  wls_extern_ssl_admin_port = var.wls_extern_ssl_admin_port
-  wls_admin_port            = local.wls_admin_port
-  wls_admin_ssl_port        = var.wls_admin_ssl_port
-  wls_domain_name           = format("%s_domain", local.service_name_prefix)
-  wls_server_startup_args   = var.wls_server_startup_args
-  wls_existing_vcn_id       = var.wls_existing_vcn_id
-  create_policies           = var.create_policies
-  enable_osmh               = var.enable_osmh
+  depends_on                   = [module.network-validation]
+  source                       = "./modules/compute/wls_compute"
+  add_loadbalancer             = local.add_load_balancer
+  is_lb_private                = var.is_lb_private
+  load_balancer_id             = local.add_load_balancer ? (var.existing_load_balancer_id != "" ? var.existing_load_balancer_id : element(coalescelist(module.load-balancer[*].wls_loadbalancer_id, [""]), 0)) : ""
+  assign_public_ip             = local.assign_weblogic_public_ip
+  availability_domain          = local.wls_availability_domain
+  compartment_id               = var.compartment_ocid
+  instance_image_id            = local.vm_instance_image_id
+  is_ucm_image                 = var.terms_and_conditions
+  instance_shape               = local.instance_shape
+  network_compartment_id       = var.network_compartment_id
+  wls_subnet_cidr              = local.wls_subnet_cidr
+  subnet_id                    = var.wls_subnet_id != "" ? var.wls_subnet_id : local.assign_weblogic_public_ip ? element(concat(module.network-wls-public-subnet[*].subnet_id, [""]), 0) : element(concat(module.network-wls-private-subnet[*].subnet_id, [""]), 0)
+  wls_subnet_id                = var.wls_subnet_id
+  region                       = var.region
+  ssh_public_key               = var.ssh_public_key
+  compute_nsg_ids              = local.compute_nsg_ids
+  num_ads                      = local.num_ads
+  tenancy_id                   = var.tenancy_ocid
+  tf_script_version            = var.tf_script_version
+  use_regional_subnet          = local.use_regional_subnet
+  wls_14c_jdk_version          = var.wls_14c_jdk_version
+  wls_14120_jdk_version        = var.wls_14120_jdk_version
+  wls_15110_jdk_version        = var.wls_15110_jdk_version
+  wls_admin_user               = local.wls_admin_user
+  wls_admin_password_id        = var.wls_admin_password_id
+  wls_admin_server_name        = format("%s_adminserver", local.service_name_prefix)
+  wls_ms_server_name           = format("%s_server_", local.service_name_prefix)
+  wls_nm_port                  = var.wls_nm_port
+  wls_ms_port                  = var.wls_ms_port
+  wls_ms_ssl_port              = var.wls_ms_ssl_port
+  wls_ms_extern_ssl_port       = var.wls_ms_extern_ssl_port
+  wls_ms_extern_port           = var.wls_ms_extern_port
+  wls_cluster_name             = format("%s_cluster", local.service_name_prefix)
+  wls_machine_name             = format("%s_machine_", local.service_name_prefix)
+  wls_extern_admin_port        = var.wls_extern_admin_port
+  wls_extern_ssl_admin_port    = var.wls_extern_ssl_admin_port
+  wls_admin_port               = local.wls_admin_port
+  wls_admin_ssl_port           = var.wls_admin_ssl_port
+  wls_domain_name              = format("%s_domain", local.service_name_prefix)
+  wls_server_startup_args      = var.wls_server_startup_args
+  wls_existing_vcn_id          = var.wls_existing_vcn_id
+  create_policies              = var.create_policies
+  enable_osmh                  = var.enable_osmh
   place_all_compute_in_same_ad = var.place_all_compute_in_same_ad
 
   # Secured Production Mode
-  configure_secure_mode              = var.configure_secure_mode
-  preserve_boot_properties           = local.preserve_boot_properties
-  administration_port                = var.administration_port
-  ms_administration_port             = var.ms_administration_port
-  keystore_password_id               = local.keystore_password_id
-  root_ca_id                         = local.root_ca_id
-  cert_compartment_id                = local.cert_compartment_id
-  thread_pool_limit                  = var.thread_pool_limit
-  wls_secondary_admin_user           = var.wls_secondary_admin_user
-  wls_secondary_admin_password_id    = local.wls_secondary_admin_password_id
+  configure_secure_mode           = var.configure_secure_mode
+  preserve_boot_properties        = local.preserve_boot_properties
+  administration_port             = var.administration_port
+  ms_administration_port          = var.ms_administration_port
+  keystore_password_id            = local.keystore_password_id
+  root_ca_id                      = local.root_ca_id
+  cert_compartment_id             = local.cert_compartment_id
+  thread_pool_limit               = var.thread_pool_limit
+  wls_secondary_admin_user        = var.wls_secondary_admin_user
+  wls_secondary_admin_password_id = local.wls_secondary_admin_password_id
 
   #The following two are for adding a dependency on the peering module
   wls_vcn_peering_dns_resolver_id           = element(flatten(concat(module.vcn-peering[*].wls_vcn_dns_resolver_id, [""])), 0)
@@ -754,8 +754,8 @@ module "compute" {
 
 module "load-balancer-backends" {
   depends_on = [module.network-validation]
-  source = "./modules/lb/backends"
-  count  = local.add_load_balancer ? 1 : 0
+  source     = "./modules/lb/backends"
+  count      = local.add_load_balancer ? 1 : 0
 
   resource_name_prefix = local.service_name_prefix
   load_balancer_id     = local.add_load_balancer ? (var.existing_load_balancer_id != "" ? var.existing_load_balancer_id : element(coalescelist(module.load-balancer[*].wls_loadbalancer_id, [""]), 0)) : ""
@@ -766,14 +766,14 @@ module "load-balancer-backends" {
   backend_port         = var.is_idcs_selected ? var.idcs_cloudgate_port : (var.configure_secure_mode ? var.wls_ms_extern_ssl_port : var.wls_ms_extern_port)
   health_check_url     = var.is_idcs_selected ? "/cloudgate" : "/"
 
-  configure_secure_mode    = var.configure_secure_mode
-  root_ca_id               = local.root_ca_id
+  configure_secure_mode = var.configure_secure_mode
+  root_ca_id            = local.root_ca_id
 }
 
 module "observability-logging" {
   depends_on = [module.network-validation]
-  source = "./modules/observability/logging"
-  count  = var.use_oci_logging ? 1 : 0
+  source     = "./modules/observability/logging"
+  count      = var.use_oci_logging ? 1 : 0
 
   compartment_id                        = var.compartment_ocid
   oci_managed_instances_principal_group = element(concat(module.policies[*].oci_managed_instances_principal_group, [""]), 0)
@@ -790,7 +790,7 @@ module "observability-logging" {
 
 module "provisioners" {
   depends_on = [module.network-validation]
-  source = "./modules/provisioners"
+  source     = "./modules/provisioners"
 
   existing_bastion_instance_id     = var.existing_bastion_instance_id
   host_ips                         = coalescelist(compact(module.compute.instance_public_ips), compact(module.compute.instance_private_ips), [""])

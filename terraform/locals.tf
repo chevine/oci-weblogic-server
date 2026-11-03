@@ -106,14 +106,14 @@ locals {
 
   async_prov_mode = !local.assign_weblogic_public_ip && !var.is_rms_private_endpoint_required && !local.is_bastion_instance_required ? "Asynchronous provisioning is enabled. Connect to each compute instance and confirm that the file /u01/data/domains/${format("%s_domain", local.service_name_prefix)}/provCompletedMarker exists. Details are found in the file /u01/logs/provisioning.log." : ""
 
-  jdk_labels  = { jdk7 = "JDK 7", jdk8 = "JDK 8", jdk11 = "JDK 11", jdk17 = "JDK 17", jdk21 = "JDK 21" }
+  jdk_labels = { jdk7 = "JDK 7", jdk8 = "JDK 8", jdk11 = "JDK 11", jdk17 = "JDK 17", jdk21 = "JDK 21" }
   jdk_version = lookup(
-  local.jdk_labels,
-  var.wls_version == "14.1.1.0" ? var.wls_14c_jdk_version :
-  var.wls_version == "14.1.2.0" ? var.wls_14120_jdk_version :
-  var.wls_version == "15.1.1.0" ? var.wls_15110_jdk_version :
-  var.wls_version == "11.1.1.7" ? "jdk7" : "jdk8"
-)
+    local.jdk_labels,
+    var.wls_version == "14.1.1.0" ? var.wls_14c_jdk_version :
+    var.wls_version == "14.1.2.0" ? var.wls_14120_jdk_version :
+    var.wls_version == "15.1.1.0" ? var.wls_15110_jdk_version :
+    var.wls_version == "11.1.1.7" ? "jdk7" : "jdk8"
+  )
 
 
   user_defined_tag_values = values(var.service_tags.definedTags)
@@ -194,25 +194,25 @@ locals {
   is_rms_private_endpoint_required  = var.is_rms_private_endpoint_required && var.wls_existing_vcn_id != "" && var.wls_subnet_id != "" && !local.assign_weblogic_public_ip ? true : false
   add_new_rms_private_endpoint      = local.is_rms_private_endpoint_required && var.add_rms_private_endpoint == "Create New Resource Manager Endpoint" ? true : false
   add_existing_rms_private_endpoint = local.is_rms_private_endpoint_required && var.add_rms_private_endpoint == "Use Existing Resource Manager Endpoint" ? true : false
-  
+
   # OS Management Hub
-  enable_osmh                     = var.enable_osmh
-  select_existing_profile         = var.select_existing_profile
-  create_profile                  = (local.enable_osmh && !local.select_existing_profile) ? true : false
-  profile_ocid                    = local.select_existing_profile ? var.profile_ocid : ""
-  profile_compartment_id          = var.profile_compartment_id == "" ? (var.select_existing_profile ? data.oci_os_management_hub_profile.osmh_profile[0].compartment_id : var.compartment_ocid) : var.profile_compartment_id
-  profile_name                    = var.profile_name == "" ? format("%s_profile", local.service_name_prefix) : var.profile_name
+  enable_osmh             = var.enable_osmh
+  select_existing_profile = var.select_existing_profile
+  create_profile          = (local.enable_osmh && !local.select_existing_profile) ? true : false
+  profile_ocid            = local.select_existing_profile ? var.profile_ocid : ""
+  profile_compartment_id  = var.profile_compartment_id == "" ? (var.select_existing_profile ? data.oci_os_management_hub_profile.osmh_profile[0].compartment_id : var.compartment_ocid) : var.profile_compartment_id
+  profile_name            = var.profile_name == "" ? format("%s_profile", local.service_name_prefix) : var.profile_name
 
 
   # Secured Production Mode
-  preserve_boot_properties          = var.configure_secure_mode ? var.preserve_boot_properties : true
-  wls_admin_port                    = var.configure_secure_mode ? var.administration_port : var.wls_admin_port
-  keystore_password_id              = var.configure_secure_mode ? var.keystore_password_id : ""
-  root_ca_id                        = var.configure_secure_mode ? var.root_ca_id : ""
-  cert_compartment_id               = var.cert_compartment_id == "" ? local.network_compartment_id : var.cert_compartment_id
-  wls_domain_configuration          = var.configure_secure_mode ? "Secured Production Mode" : "Production Mode"
-  wls_extern_ssl_admin_port         = var.configure_secure_mode ? var.administration_port : var.wls_extern_ssl_admin_port
-  wls_admin_user                    = var.configure_secure_mode ? var.wls_primary_admin_user : var.wls_admin_user
-  wls_secondary_admin_password_id   = var.configure_secure_mode ? var.wls_secondary_admin_password_id : ""
-  root_ca_compartment_id            = var.configure_secure_mode && var.root_ca_id != "" ? data.oci_certificates_management_certificate_authority.root_certificate_authority[0].compartment_id : ""
+  preserve_boot_properties        = var.configure_secure_mode ? var.preserve_boot_properties : true
+  wls_admin_port                  = var.configure_secure_mode ? var.administration_port : var.wls_admin_port
+  keystore_password_id            = var.configure_secure_mode ? var.keystore_password_id : ""
+  root_ca_id                      = var.configure_secure_mode ? var.root_ca_id : ""
+  cert_compartment_id             = var.cert_compartment_id == "" ? local.network_compartment_id : var.cert_compartment_id
+  wls_domain_configuration        = var.configure_secure_mode ? "Secured Production Mode" : "Production Mode"
+  wls_extern_ssl_admin_port       = var.configure_secure_mode ? var.administration_port : var.wls_extern_ssl_admin_port
+  wls_admin_user                  = var.configure_secure_mode ? var.wls_primary_admin_user : var.wls_admin_user
+  wls_secondary_admin_password_id = var.configure_secure_mode ? var.wls_secondary_admin_password_id : ""
+  root_ca_compartment_id          = var.configure_secure_mode && var.root_ca_id != "" ? data.oci_certificates_management_certificate_authority.root_certificate_authority[0].compartment_id : ""
 }
