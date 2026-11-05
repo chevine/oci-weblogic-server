@@ -45,3 +45,6 @@ env_vars*
 
 *.log
 terraform-debug.log
+*.pem
+*.sso
+*jks
