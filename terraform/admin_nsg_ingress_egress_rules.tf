@@ -3,8 +3,8 @@ resource "oci_core_network_security_group_security_rule" "wls_admin_nonprod_ingr
   direction                 = "INGRESS"
   protocol                  = "6"
 
-  source      = var.bastion_subnet_cidr
-  source_type = "CIDR_BLOCK"
+  source      = element(module.network-bastion-nsg[0].nsg_id, 0)
+  source_type = "NETWORK_SECURITY_GROUP"
   stateless   = false
 
   tcp_options {
@@ -21,8 +21,8 @@ resource "oci_core_network_security_group_security_rule" "wls_admin_nonprod_ingr
   direction                 = "INGRESS"
   protocol                  = "6"
 
-  source      = var.wls_subnet_cidr
-  source_type = "CIDR_BLOCK"
+  source      = element(module.network-compute-admin-nsg[0].nsg_id, 0)
+  source_type = "NETWORK_SECURITY_GROUP"
   stateless   = false
 
   tcp_options {
@@ -40,8 +40,8 @@ resource "oci_core_network_security_group_security_rule" "wls_admin_nonprod_ingr
   direction                 = "INGRESS"
   protocol                  = "6"
 
-  source      = var.bastion_subnet_cidr
-  source_type = "CIDR_BLOCK"
+  source      = element(module.network-bastion-nsg[0].nsg_id, 0)
+  source_type = "NETWORK_SECURITY_GROUP"
   stateless   = false
 
   tcp_options {

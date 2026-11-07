@@ -16,11 +16,12 @@ variable "wallet_password_secret_ocid" {
   description = "The OCID of the secret in OCI Vault that contains the wallet password"
   default     = ""
 }
-variable "nsg_ids" {
-  type        = map(list(string))
-  description = "The OCIDs of the network security groups created for the WebLogic for OCI stack"
-  default     = {}
-}
+
+#variable "nsg_ids" {
+#  type        = map(list(string))
+#  description = "The OCIDs of the network security groups created for the WebLogic for OCI stack"
+#  default     = {}
+#}
 
 variable "nsg_source_type" {
   description = "Source type for ingress NSG rules"
