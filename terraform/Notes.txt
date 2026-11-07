@@ -8,6 +8,11 @@ https://docs.oracle.com/en/learn/apex-identitydomains-sso/index.html#introductio
 
 ssh-keygen -t rsa -b 4096 -f ras_dev_rsa
 choco upgrade terraform -y
+
+
+pip install oci-cli --upgrade
+pip install oci --upgrade
+
 ==============================================================================================
 ==============================================================================================
 ==============================================================================================
@@ -19,14 +24,18 @@ oci iam domain get --domain-id ocid1.domain.oc1..aaaaaaaawvzxgn2dulgc7w54sy4dkis
 ==============================================================================================
 # Define the environment variables
 export Autonomous_DB_OCID=ocid1.autonomousdatabase.oc1.iad.anuwcljs5sghbyiaeuvrqqccin7p4bdwss52425ry6aufpfmlqh6velwlgxq
-export Bastion_Host_IP=10.0.1.83
-export WLS_Subnet_OCID=ocid1.subnet.oc1.iad.aaaaaaaaipnr2vy4tpbk6gj537p6oskse53nuazm4x3ytnbkjw2swhopipwa
-export Bastion_Subnet_OCID=ocid1.subnet.oc1.iad.aaaaaaaaendz7bs44w2lm7r42vzeqhtuq6rv564wlk22nv6fqd66jjbw7awq
-export Load_Balancer_Subnet_OCID=ocid1.subnet.oc1.iad.aaaaaaaandcavqpn5g7bfdbtqyjptrojvvzoifqsxtja5lrusszhhbwq3hja
-export OCID_of_NSG_for_Admin_Server=ocid1.networksecuritygroup.oc1.iad.aaaaaaaa6nnln7n7qzu2modurucy2pp5ezy5qnwgkk4z43iggkztfbnkguia
-export OCID_of_NSG_for_Managed_Server=ocid1.networksecuritygroup.oc1.iad.aaaaaaaaq5jiaj5nbzj76a4gpfj43a2ojss6c3sqma2qvuc6chicfupi5dbq
-export OCID_of_NSG_for_Load_Balancer=ocid1.networksecuritygroup.oc1.iad.aaaaaaaas25vuc7zndfsia4xu4in3fvcnucs6yvatvtp6d37mevqsp4cyrxa
-export OCID_of_NSG_for_File_System_Storage=ocid1.networksecuritygroup.oc1.iad.aaaaaaaam2i2udxyxs2l2t42xtcjqwfaut73vuw5tmcemmwgdmn7ne5335dq
+export Bastion_Host_IP=10.0.1.191
+
+export Load_Balancer_Subnet_OCID=ocid1.subnet.oc1.iad.aaaaaaaap7fu5z6eqea4frgm76t2k76r32z4n3kennp7wshbfjosghsbastq
+export Bastion_Subnet_OCID=ocid1.subnet.oc1.iad.aaaaaaaa32y4verk4uvb6aroxowofnluz7wthuuupt2yisymo3ih2ewob6xa
+export WLS_Subnet_OCID=ocid1.subnet.oc1.iad.aaaaaaaajulvhbw7zrhjw6ak2ewypgab4thn4r5xmohwlkgvfgsuv37elzwa
+
+export OCID_of_NSG_for_Managed_Server=ocid1.networksecuritygroup.oc1.iad.aaaaaaaayoqopjrlvwnjgxj2ksne46dcfi457bvi6rgd7sqdnywmlygdvoda
+export OCID_of_NSG_for_File_System_Storage=ocid1.networksecuritygroup.oc1.iad.aaaaaaaab4643s5dagvoli2s5ooi7hts6zydjjg4gggtx5pjvdg365nokdsa
+export OCID_of_NSG_for_Admin_Server=ocid1.networksecuritygroup.oc1.iad.aaaaaaaaxdwyef7623boixzasutcu6fz4ppusdi2hdcvpp4tjcw3hfvzcevq
+export OCID_of_NSG_for_Bastion=ocid1.networksecuritygroup.oc1.iad.aaaaaaaa2bp4yjlsivrorevznqt3zyvsgslwpoihjpyuyburf4anrqwvwmpq
+export OCID_of_NSG_for_Load_Balancer=ocid1.networksecuritygroup.oc1.iad.aaaaaaaasbbnbx6pi22q7lxwd3tlsnp4xssvefk6rgrqhqonlgelsepy3aha
+
 export external_WLS_LB_Port=443
 
 # Validate WebLogic subnet

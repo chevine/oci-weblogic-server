@@ -39,7 +39,7 @@ resource "oci_core_network_security_group_security_rule" "wls_managed_ingress_se
 
   tcp_options {
     destination_port_range {
-      min = 9072
+      min = 9071
       max = 9072
     }
   }
@@ -93,6 +93,59 @@ resource "oci_core_network_security_group_security_rule" "wls_managed_ingress_se
     destination_port_range {
       min = 22
       max = 22
+    }
+  }
+}
+
+
+resource "oci_core_network_security_group_security_rule" "wls_managed_ingress_security_rule_7" {
+  network_security_group_id = element(module.network-compute-managed-nsg[0].nsg_id, 0)
+  direction                 = "INGRESS"
+  protocol                  = "6"
+
+  source      = element(module.network-compute-managed-nsg[0].nsg_id, 0)
+  source_type = "NETWORK_SECURITY_GROUP"
+  stateless   = false
+
+  tcp_options {
+    destination_port_range {
+      min = 22
+      max = 22
+    }
+  }
+}
+
+resource "oci_core_network_security_group_security_rule" "wls_managed_ingress_security_rule_8" {
+  network_security_group_id = element(module.network-compute-managed-nsg[0].nsg_id, 0)
+  direction                 = "INGRESS"
+  protocol                  = "6"
+
+  source      = element(module.network-lb-nsg[0].nsg_id, 0)
+  source_type = "NETWORK_SECURITY_GROUP"
+  stateless   = false
+
+  tcp_options {
+    destination_port_range {
+      min = 9999
+      max = 9999
+    }
+  }
+}
+
+
+resource "oci_core_network_security_group_security_rule" "wls_managed_egress_security_rule_1" {
+  network_security_group_id = element(module.network-compute-managed-nsg[0].nsg_id, 0)
+  direction                 = "INGRESS"
+  protocol                  = "6"
+
+  source      = element(module.network-compute-managed-nsg[0].nsg_id, 0)
+  source_type = "NETWORK_SECURITY_GROUP"
+  stateless   = false
+
+  tcp_options {
+    destination_port_range {
+      min = 1521
+      max = 1522
     }
   }
 }
