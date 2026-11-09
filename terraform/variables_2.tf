@@ -44,3 +44,12 @@ variable "public_key_path" {
   description = "Public key for ssh access to WebLogic compute instances. Use the corresponding private key to access the WebLogic compute instances"
 }
 
+variable "wls_security_rules" {
+  type = list(object({
+    source = string
+    min_port  = number
+    max_port  = number
+  }))
+  default     = []
+  description = "List of WebLogic security groups to be created for the WebLogic for OCI stack"
+}

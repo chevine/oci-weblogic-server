@@ -24,58 +24,58 @@ oci iam domain get --domain-id ocid1.domain.oc1..aaaaaaaawvzxgn2dulgc7w54sy4dkis
 ==============================================================================================
 # Define the environment variables
 export Autonomous_DB_OCID=ocid1.autonomousdatabase.oc1.iad.anuwcljs5sghbyiaeuvrqqccin7p4bdwss52425ry6aufpfmlqh6velwlgxq
-export Bastion_Host_IP=10.0.1.191
+export Bastion_Host_IP=10.0.1.250
 
-export Load_Balancer_Subnet_OCID=ocid1.subnet.oc1.iad.aaaaaaaap7fu5z6eqea4frgm76t2k76r32z4n3kennp7wshbfjosghsbastq
-export Bastion_Subnet_OCID=ocid1.subnet.oc1.iad.aaaaaaaa32y4verk4uvb6aroxowofnluz7wthuuupt2yisymo3ih2ewob6xa
-export WLS_Subnet_OCID=ocid1.subnet.oc1.iad.aaaaaaaajulvhbw7zrhjw6ak2ewypgab4thn4r5xmohwlkgvfgsuv37elzwa
+export Load_Balancer_Subnet_OCID=ocid1.subnet.oc1.iad.aaaaaaaag37dydochd5ueht373tpdzp6cnk6ibqzen5j5uuidfntie6q6wna
+export Bastion_Subnet_OCID=ocid1.subnet.oc1.iad.aaaaaaaaac7bqcjhjv25k3igz2v4o4kyzcavthskzhyier3vkzzw3vrns3ka
+export WLS_Subnet_OCID=ocid1.subnet.oc1.iad.aaaaaaaaq2ky2y7hpdzbqcvvviyhhgrcgjzyywre5xtjmmb4a3tkomjo5wua
 
-export OCID_of_NSG_for_Managed_Server=ocid1.networksecuritygroup.oc1.iad.aaaaaaaayoqopjrlvwnjgxj2ksne46dcfi457bvi6rgd7sqdnywmlygdvoda
-export OCID_of_NSG_for_File_System_Storage=ocid1.networksecuritygroup.oc1.iad.aaaaaaaab4643s5dagvoli2s5ooi7hts6zydjjg4gggtx5pjvdg365nokdsa
-export OCID_of_NSG_for_Admin_Server=ocid1.networksecuritygroup.oc1.iad.aaaaaaaaxdwyef7623boixzasutcu6fz4ppusdi2hdcvpp4tjcw3hfvzcevq
-export OCID_of_NSG_for_Bastion=ocid1.networksecuritygroup.oc1.iad.aaaaaaaa2bp4yjlsivrorevznqt3zyvsgslwpoihjpyuyburf4anrqwvwmpq
-export OCID_of_NSG_for_Load_Balancer=ocid1.networksecuritygroup.oc1.iad.aaaaaaaasbbnbx6pi22q7lxwd3tlsnp4xssvefk6rgrqhqonlgelsepy3aha
+export OCID_of_NSG_for_Admin_Server=ocid1.networksecuritygroup.oc1.iad.aaaaaaaatifmq3f7e5lh2c5t7fnjpbz2whxmg65ajsedeoflp6jcvbxj4mwa
+export OCID_of_NSG_for_Bastion=ocid1.networksecuritygroup.oc1.iad.aaaaaaaaivux5kfy3fj3hkpra3l6n7benohqlwfmnz7sfdcyv3g534klrbla
+export OCID_of_NSG_for_Load_Balancer=ocid1.networksecuritygroup.oc1.iad.aaaaaaaa5yk2mfw626bbleghk2v52syjtzksdwa4rgsba7kaybqqjeyiwdza
+export OCID_of_NSG_for_Managed_Server=ocid1.networksecuritygroup.oc1.iad.aaaaaaaav3licpyu2ysiq2mimekyqrpdg3byxmxoxkig3cmmqtgxhzq37tfa
+export OCID_of_NSG_for_File_System_Storage=ocid1.networksecuritygroup.oc1.iad.aaaaaaaaivux5kfy3fj3hkpra3l6n7benohqlwfmnz7sfdcyv3g534klrbla
 
 export external_WLS_LB_Port=443
 
 # Validate WebLogic subnet
-~/scripts/network_validation.sh -w ${WLS_Subnet_OCID}
+clear;~/scripts/network_validation.sh -w ${WLS_Subnet_OCID}
 
 
 # Validate WebLogic NSG
-~/scripts/network_validation.sh -w ${WLS_Subnet_OCID} -a ${OCID_of_NSG_for_Admin_Server} -m ${OCID_of_NSG_for_Managed_Server}
+clear;~/scripts/network_validation.sh -w ${WLS_Subnet_OCID} -a ${OCID_of_NSG_for_Admin_Server} -m ${OCID_of_NSG_for_Managed_Server}
 
 # Bastion subnet
-~/scripts/network_validation.sh -w ${WLS_Subnet_OCID} -b ${Bastion_Subnet_OCID}
+clear;~/scripts/network_validation.sh -w ${WLS_Subnet_OCID} -b ${Bastion_Subnet_OCID}
 
 # Existing Bastion Host IP
-~/scripts/network_validation.sh -w ${WLS_Subnet_OCID} -i ${Bastion_Host_IP}
+clear;~/scripts/network_validation.sh -w ${WLS_Subnet_OCID} -i ${Bastion_Host_IP}
 
 # Bastion NSG
-~/scripts/network_validation.sh -w ${WLS_Subnet_OCID} -b ${Bastion_Subnet_OCID} -a ${OCID_of_NSG_for_Admin_Server} -m ${OCID_of_NSG_for_Managed_Server} -n ${OCID_of_NSG_for_Bastion_Host}
+clear;~/scripts/network_validation.sh -w ${WLS_Subnet_OCID} -b ${Bastion_Subnet_OCID} -a ${OCID_of_NSG_for_Admin_Server} -m ${OCID_of_NSG_for_Managed_Server} -n ${OCID_of_NSG_for_Bastion_Host}
 
 
 # Existing Bastion Hosst IP with NSG:
-~/scripts/network_validation.sh -w ${WLS_Subnet_OCID} -i ${Bastion_Host_IP} -a ${OCID_of_NSG_for_Admin_Server} -m ${OCID_of_NSG_for_Managed_Server} 
+clear;~/scripts/network_validation.sh -w ${WLS_Subnet_OCID} -i ${Bastion_Host_IP} -a ${OCID_of_NSG_for_Admin_Server} -m ${OCID_of_NSG_for_Managed_Server} 
 
 # Load balancer Subnet  
-./network_validation.sh -w ${WLS_Subnet_OCID} -u ${Load_Balancer_Subnet1_OCID} -l ${external_WLS_LB_Port}
-./network_validation.sh -w ${WLS_Subnet_OCID} -u ${Load_Balancer_Subnet1_OCID} -l ${external_WLS_LB_Port} -j 0.0.0.0/0
+clear;~/scripts/network_validation.sh -w ${WLS_Subnet_OCID} -u ${Load_Balancer_Subnet1_OCID} -l ${external_WLS_LB_Port}
+clear;~/scripts/network_validation.sh -w ${WLS_Subnet_OCID} -u ${Load_Balancer_Subnet1_OCID} -l ${external_WLS_LB_Port} -j 0.0.0.0/0
 
 Load balancer NSG
-./network_validation.sh -w ${WLS_Subnet_OCID} -u ${Load_Balancer_Subnet_OCID} -l ${external_WLS_LB_Port} -a ${OCID_of_NSG_for_Admin_Server} -m ${OCID_of_NSG_for_Managed_Server} -e ${OCID_of_NSG_for_Load_Balancer}
+clear;~/scripts/network_validation.sh -w ${WLS_Subnet_OCID} -u ${Load_Balancer_Subnet_OCID} -l ${external_WLS_LB_Port} -a ${OCID_of_NSG_for_Admin_Server} -m ${OCID_of_NSG_for_Managed_Server} -e ${OCID_of_NSG_for_Load_Balancer}
 
 # Public load balancer
-./network_validation.sh -w ${WLS_Subnet_OCID} -u ${Load_Balancer_Subnet_OCID} -l ${external_WLS_LB_Port} -j 0.0.0.0/0 -a ${OCID_of_NSG_for_Admin_Server} -m ${OCID_of_NSG_for_Managed_Server} -e ${OCID_of_NSG_for_Load_Balancer}
+clear;~/scripts/network_validation.sh -w ${WLS_Subnet_OCID} -u ${Load_Balancer_Subnet_OCID} -l ${external_WLS_LB_Port} -j 0.0.0.0/0 -a ${OCID_of_NSG_for_Admin_Server} -m ${OCID_of_NSG_for_Managed_Server} -e ${OCID_of_NSG_for_Load_Balancer}
 
 # File System Storage subnet
-./network_validation.sh -w ${WLS_Subnet_OCID} -f ${File_System_Storage_Subnet_OCID}
+clear;~/scripts/network_validation.sh -w ${WLS_Subnet_OCID} -f ${File_System_Storage_Subnet_OCID}
 
 # File System Storage NSG
-./network_validation.sh -w ${WLS_Subnet_OCID} -a ${OCID_of_NSG_for_Admin_Server} -m ${OCID_of_NSG_for_Managed_Server} -e ${OCID_of_NSG_for_File_System_Storage}
+clear;~/scripts/network_validation.sh -w ${WLS_Subnet_OCID} -a ${OCID_of_NSG_for_Admin_Server} -m ${OCID_of_NSG_for_Managed_Server} -e ${OCID_of_NSG_for_File_System_Storage}
 
 # JRF domain with an Autonomous Database
-./network_validation.sh -w ${WLS_Subnet_OCID} -t ${Autonomous_DB_OCID} -a ${OCID_of_NSG_for_Admin_Server} -m ${OCID_of_NSG_for_Managed_Server}
+clear;~/scripts/network_validation.sh -w ${WLS_Subnet_OCID} -t ${Autonomous_DB_OCID} -a ${OCID_of_NSG_for_Admin_Server} -m ${OCID_of_NSG_for_Managed_Server}
 
 #
 
