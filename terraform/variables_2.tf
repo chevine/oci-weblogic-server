@@ -44,12 +44,30 @@ variable "public_key_path" {
   description = "Public key for ssh access to WebLogic compute instances. Use the corresponding private key to access the WebLogic compute instances"
 }
 
+# Protocol 6 is TCP, 17 is UDP, 1 is ICMP. For more information, see https://www.iana.org/assignments/protocol-numbers/protocol-numbers.xhtml
+# Code 0 is echo reply, 3 is destination unreachable, 8 is echo request. For more information, see https://www.iana.org/assignments/icmp-parameters/icmp-parameters.xhtml  
 variable "wls_security_rules" {
   type = list(object({
+    protocol = string
+    type = number
+    code = number
     source = string
     min_port  = number
     max_port  = number
   }))
   default     = []
-  description = "List of WebLogic security groups to be created for the WebLogic for OCI stack"
+  description = "Used to define the security rules for the WLS security list. The default is an empty list, which means no rules will be created. If you want to create rules, you can provide a list of objects with the following attributes: protocol, type, code, source, min_port, and max_port."
+}
+
+variable "bastion_security_rules" {
+  type = list(object({
+    protocol = string
+    type = number
+    code = number
+    source = string
+    min_port  = number
+    max_port  = number
+  }))
+  default     = []
+  description = "Used to define the security rules for the bastion security list. The default is an empty list, which means no rules will be created. If you want to create rules, you can provide a list of objects with the following attributes: protocol, type, code, source, min_port, and max_port."
 }

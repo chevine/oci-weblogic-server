@@ -14,6 +14,24 @@ pip install oci-cli --upgrade
 pip install oci --upgrade
 
 ==============================================================================================
+The primary OCI Python SDK documentation links are:
+
+OCI Python SDK Overview (Oracle Documentation)
+ https://docs.oracle.com/en-us/iaas/Content/API/SDKDocs/pythonsdk.htm
+
+OCI Python SDK API Reference (latest)
+ https://docs.oracle.com/en-us/iaas/tools/python/latest/
+
+Useful related links:
+
+GitHub Repository https://github.com/oracle/oci-python-sdk
+
+PyPI Package https://pypi.org/project/oci/
+
+oci.core.VirtualNetworkClient
+oci.core.ComputeClient
+oci.core.ComputeManagementClient
+oci.resource_search.ResourceSearchClient
 ==============================================================================================
 ==============================================================================================
 clear;oci vault secret list --compartment-id ocid1.compartment.oc1..aaaaaaaagzr3ea6uoge33lawdcrrwye3gwk5f6gqonhzcvo5h6y425k27dla --config-file C:\Users\chevi\.oci\config --profile DEFAULT --auth security_token
@@ -23,39 +41,40 @@ clear;oci vault secret get --secret-id ocid1.vaultsecret.oc1.iad.amaaaaaa5sghbyi
 oci iam domain get --domain-id ocid1.domain.oc1..aaaaaaaawvzxgn2dulgc7w54sy4dkisnomtkcgsnxumjt3j4tts5lhqmnyka --config-file C:\Users\chevi\.oci\config --profile DEFAULT --auth security_token 
 ==============================================================================================
 # Define the environment variables
+export COMPARTMENT_OCID=ocid1.compartment.oc1..aaaaaaaagzr3ea6uoge33lawdcrrwye3gwk5f6gqonhzcvo5h6y425k27dla
 export Autonomous_DB_OCID=ocid1.autonomousdatabase.oc1.iad.anuwcljs5sghbyiaeuvrqqccin7p4bdwss52425ry6aufpfmlqh6velwlgxq
-export Bastion_Host_IP=10.0.1.250
+export Bastion_Host_IP=10.0.1.65
 
-export Load_Balancer_Subnet_OCID=ocid1.subnet.oc1.iad.aaaaaaaag37dydochd5ueht373tpdzp6cnk6ibqzen5j5uuidfntie6q6wna
-export Bastion_Subnet_OCID=ocid1.subnet.oc1.iad.aaaaaaaaac7bqcjhjv25k3igz2v4o4kyzcavthskzhyier3vkzzw3vrns3ka
-export WLS_Subnet_OCID=ocid1.subnet.oc1.iad.aaaaaaaaq2ky2y7hpdzbqcvvviyhhgrcgjzyywre5xtjmmb4a3tkomjo5wua
+export Bastion_Subnet_OCID=ocid1.subnet.oc1.iad.aaaaaaaai6u27htomoueqrttz44uyn2m7uov3q3ph5vsghku53jdx4expp3q
+export Load_Balancer_Subnet_OCID=ocid1.subnet.oc1.iad.aaaaaaaahxqo3l53463iygo4akotcgz7ycg7qdrr3cdrmqfcaucncmpi4boa
+export WLS_Subnet_OCID=ocid1.subnet.oc1.iad.aaaaaaaaid4di6v76trainxj6g6yjwx7kfhodzqo2psjjfofmuio36nx2q2q
 
-export OCID_of_NSG_for_Admin_Server=ocid1.networksecuritygroup.oc1.iad.aaaaaaaatifmq3f7e5lh2c5t7fnjpbz2whxmg65ajsedeoflp6jcvbxj4mwa
-export OCID_of_NSG_for_Bastion=ocid1.networksecuritygroup.oc1.iad.aaaaaaaaivux5kfy3fj3hkpra3l6n7benohqlwfmnz7sfdcyv3g534klrbla
-export OCID_of_NSG_for_Load_Balancer=ocid1.networksecuritygroup.oc1.iad.aaaaaaaa5yk2mfw626bbleghk2v52syjtzksdwa4rgsba7kaybqqjeyiwdza
-export OCID_of_NSG_for_Managed_Server=ocid1.networksecuritygroup.oc1.iad.aaaaaaaav3licpyu2ysiq2mimekyqrpdg3byxmxoxkig3cmmqtgxhzq37tfa
-export OCID_of_NSG_for_File_System_Storage=ocid1.networksecuritygroup.oc1.iad.aaaaaaaaivux5kfy3fj3hkpra3l6n7benohqlwfmnz7sfdcyv3g534klrbla
+export OCID_of_NSG_for_Admin_Server=ocid1.networksecuritygroup.oc1.iad.aaaaaaaaitquhescnzhgdccsk77hqibztztlhjol2ciyy3udqbt2xlhsbq4q
+export OCID_of_NSG_for_Bastion=ocid1.networksecuritygroup.oc1.iad.aaaaaaaajxbhsj3km336vo6bz6ubylp6tuvuk73uzoqeplnkld5tsxwlk3uq
+export OCID_of_NSG_for_Load_Balancer=ocid1.networksecuritygroup.oc1.iad.aaaaaaaazaj5b675xruitw6j3lrbqhwobvwlz2yju3hryacsao67dtde7dhq
+export OCID_of_NSG_for_Managed_Server=ocid1.networksecuritygroup.oc1.iad.aaaaaaaakmwguttmyvjqwco354uusus2pwi3hhtxdxup6n5aalqp5x7iteda
+export OCID_of_NSG_for_File_System_Storage=ocid1.networksecuritygroup.oc1.iad.aaaaaaaaennwphpyxc4fynfbgtd7wtrjqobw2f5bayghytuedmnj5a5ytlpq
 
 export external_WLS_LB_Port=443
 
-# Validate WebLogic subnet
+# Validate WebLogic subnet(OK)
 clear;~/scripts/network_validation.sh -w ${WLS_Subnet_OCID}
 
 
-# Validate WebLogic NSG
+# Validate WebLogic NSG(FAIL)
 clear;~/scripts/network_validation.sh -w ${WLS_Subnet_OCID} -a ${OCID_of_NSG_for_Admin_Server} -m ${OCID_of_NSG_for_Managed_Server}
 
-# Bastion subnet
+# Bastion subnet(OK)
 clear;~/scripts/network_validation.sh -w ${WLS_Subnet_OCID} -b ${Bastion_Subnet_OCID}
 
-# Existing Bastion Host IP
+# Existing Bastion Host IP(OK)
 clear;~/scripts/network_validation.sh -w ${WLS_Subnet_OCID} -i ${Bastion_Host_IP}
 
-# Bastion NSG
+# Bastion NSG(FAIL)
 clear;~/scripts/network_validation.sh -w ${WLS_Subnet_OCID} -b ${Bastion_Subnet_OCID} -a ${OCID_of_NSG_for_Admin_Server} -m ${OCID_of_NSG_for_Managed_Server} -n ${OCID_of_NSG_for_Bastion_Host}
 
 
-# Existing Bastion Hosst IP with NSG:
+# Existing Bastion Host IP with NSG:(FAIL)
 clear;~/scripts/network_validation.sh -w ${WLS_Subnet_OCID} -i ${Bastion_Host_IP} -a ${OCID_of_NSG_for_Admin_Server} -m ${OCID_of_NSG_for_Managed_Server} 
 
 # Load balancer Subnet  
@@ -68,7 +87,7 @@ clear;~/scripts/network_validation.sh -w ${WLS_Subnet_OCID} -u ${Load_Balancer_S
 # Public load balancer
 clear;~/scripts/network_validation.sh -w ${WLS_Subnet_OCID} -u ${Load_Balancer_Subnet_OCID} -l ${external_WLS_LB_Port} -j 0.0.0.0/0 -a ${OCID_of_NSG_for_Admin_Server} -m ${OCID_of_NSG_for_Managed_Server} -e ${OCID_of_NSG_for_Load_Balancer}
 
-# File System Storage subnet
+# File System Storage subnet(OK)
 clear;~/scripts/network_validation.sh -w ${WLS_Subnet_OCID} -f ${File_System_Storage_Subnet_OCID}
 
 # File System Storage NSG
@@ -77,7 +96,12 @@ clear;~/scripts/network_validation.sh -w ${WLS_Subnet_OCID} -a ${OCID_of_NSG_for
 # JRF domain with an Autonomous Database
 clear;~/scripts/network_validation.sh -w ${WLS_Subnet_OCID} -t ${Autonomous_DB_OCID} -a ${OCID_of_NSG_for_Admin_Server} -m ${OCID_of_NSG_for_Managed_Server}
 
-#
+# List all of the ADB private endpoints
+oci db autonomous-database list \
+  --compartment-id ${COMPARTMENT_OCID} \
+  --all \
+  --query "data[?\"private-endpoint\" != null].{Name:\"display-name\",PrivateEndpoint:\"private-endpoint\",State:\"lifecycle-state\"}" \
+  --output table
 
 #
 
