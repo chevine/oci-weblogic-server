@@ -3,7 +3,7 @@ resource "oci_core_network_security_group_security_rule" "lb_ingress_security_ru
   direction                 = "INGRESS"
   protocol                  = "6"
 
-  source      = var.wls_subnet_cidr
+  source      = var.wls_vcn_cidr
   source_type = "CIDR_BLOCK"
   stateless   = false
 
@@ -26,7 +26,7 @@ resource "oci_core_network_security_group_security_rule" "lb_ingress_security_ru
   direction                 = "INGRESS"
   protocol                  = "6"
 
-  source      = var.wls_subnet_cidr
+  source      = var.wls_vcn_cidr
   source_type = "CIDR_BLOCK"
   stateless   = false
 
@@ -49,7 +49,7 @@ resource "oci_core_network_security_group_security_rule" "lb_ingress_security_ru
   direction                 = "INGRESS"
   protocol                  = "17"
 
-  source      = var.wls_subnet_cidr
+  source      = var.wls_vcn_cidr
   source_type = "CIDR_BLOCK"
   stateless   = false
 
@@ -72,7 +72,7 @@ resource "oci_core_network_security_group_security_rule" "lb_ingress_security_ru
   direction                 = "INGRESS"
   protocol                  = "17"
 
-  source      = var.wls_subnet_cidr
+  source      = var.wls_vcn_cidr
   source_type = "CIDR_BLOCK"
   stateless   = false
 
