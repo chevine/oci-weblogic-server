@@ -1305,6 +1305,7 @@ fi
 
 ### Validation - Only when ATP DB OCID is provided ###
 
+set -x
 if [[ -n ${ATPDB_OCID} ]]
 then
   atp_subnet_ocid=$(oci db autonomous-database get --autonomous-database-id ${ATPDB_OCID} | jq -r '.data["subnet-id"]')
@@ -1367,6 +1368,7 @@ then
     fi
   fi
 fi
+set +x
 
 ### Validation - Only when Bastion subnet/NSG OCID or Bastion Host IP CIDR is provided) ###
 

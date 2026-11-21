@@ -45,7 +45,7 @@ export COMPARTMENT_OCID=ocid1.compartment.oc1..aaaaaaaagzr3ea6uoge33lawdcrrwye3g
 export Autonomous_DB_OCID=ocid1.autonomousdatabase.oc1.iad.anuwcljs5sghbyiaeuvrqqccin7p4bdwss52425ry6aufpfmlqh6velwlgxq
 
 
-export Bastion_Host_IP=10.0.2.194
+export Bastion_Host_IP=10.0.2.84
 
 export Bastion_Subnet_OCID=ocid1.subnet.oc1.iad.aaaaaaaa7n5nw7ox3ermnojtbosn2wa5jkws34rgm5k7ifnrsite7j3qcp6a
 export Load_Balancer_Subnet_OCID=ocid1.subnet.oc1.iad.aaaaaaaahhmwb44aj5c7is3krqfdqppwr4eij7qewlm7d3moklsto2duppqq
