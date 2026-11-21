@@ -16,3 +16,18 @@ resource "oci_core_security_list" "bastion_security_list" {
     }
   }
 }
+
+/*
+resource "oci_core_subnet" "existing_bastion_subnet" {
+  depends_on = [oci_core_security_list.bastion_security_list]
+  vcn_id = local.vcn_id
+  compartment_id = var.network_compartment_id
+
+  cidr_block = var.bastion_subnet_cidr
+
+  security_list_ids = [
+#    data.oci_core_vcn.wls_vcn[0].default_security_list_id,
+    oci_core_security_list.bastion_security_list.id
+    ]
+}
+*/

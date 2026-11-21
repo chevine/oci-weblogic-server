@@ -1,0 +1,3 @@
+Instance,State,Shape,Subnet,PrivateIP,PublicIP,NSGs
+RASDEV002-bastion-instance,STOPPED,VM.Standard2.1,RASDEV002-bsubnet,10.0.1.203,129.158.34.114,RASDEV002-bastion-nsg
+RASDEV002-wls-0,STOPPED,VM.Standard.E4.Flex,RASDEV002-wl-subnet,10.0.2.43,,"RASDEV002-admin-server-nsg,RASDEV002-managed-server-nsg"

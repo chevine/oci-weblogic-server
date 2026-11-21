@@ -15,9 +15,8 @@ resource "oci_core_network_security_group_security_rule" "wls_managed_ingress_se
   direction                 = "INGRESS"
   protocol                  = "6"
 
-  source      = element(module.network-lb-nsg[0].nsg_id, 0)
-
-  source_type = "NETWORK_SECURITY_GROUP"
+  source      = var.wls_subnet_cidr
+  source_type = "CIDR_BLOCK"
   stateless   = false
 
   tcp_options {
@@ -33,8 +32,8 @@ resource "oci_core_network_security_group_security_rule" "wls_managed_ingress_se
   direction                 = "INGRESS"
   protocol                  = "6"
 
-  source      = element(module.network-compute-managed-nsg[0].nsg_id, 0)
-  source_type = "NETWORK_SECURITY_GROUP"
+  source      = var.wls_subnet_cidr
+  source_type = "CIDR_BLOCK"
   stateless   = false
 
   tcp_options {
@@ -50,8 +49,8 @@ resource "oci_core_network_security_group_security_rule" "wls_managed_ingress_se
   direction                 = "INGRESS"
   protocol                  = "6"
 
-  source      = element(module.network-compute-managed-nsg[0].nsg_id, 0)
-  source_type = "NETWORK_SECURITY_GROUP"
+  source      = var.wls_subnet_cidr
+  source_type = "CIDR_BLOCK"
   stateless   = false
 
   tcp_options {
@@ -67,8 +66,8 @@ resource "oci_core_network_security_group_security_rule" "wls_managed_ingress_se
   direction                 = "INGRESS"
   protocol                  = "6"
 
-  source      = element(module.network-compute-managed-nsg[0].nsg_id, 0)
-  source_type = "NETWORK_SECURITY_GROUP"
+  source      = var.wls_subnet_cidr
+  source_type = "CIDR_BLOCK"
   stateless   = false
 
   tcp_options {
@@ -85,8 +84,8 @@ resource "oci_core_network_security_group_security_rule" "wls_managed_ingress_se
   direction                 = "INGRESS"
   protocol                  = "6"
 
-  source      = element(module.network-compute-managed-nsg[0].nsg_id, 0)
-  source_type = "NETWORK_SECURITY_GROUP"
+  source      = var.wls_subnet_cidr
+  source_type = "CIDR_BLOCK"
   stateless   = false
 
   tcp_options {
@@ -103,8 +102,8 @@ resource "oci_core_network_security_group_security_rule" "wls_managed_ingress_se
   direction                 = "INGRESS"
   protocol                  = "6"
 
-  source      = element(module.network-compute-managed-nsg[0].nsg_id, 0)
-  source_type = "NETWORK_SECURITY_GROUP"
+  source      = var.wls_subnet_cidr
+  source_type = "CIDR_BLOCK"
   stateless   = false
 
   tcp_options {
@@ -120,8 +119,8 @@ resource "oci_core_network_security_group_security_rule" "wls_managed_ingress_se
   direction                 = "INGRESS"
   protocol                  = "6"
 
-  source      = element(module.network-lb-nsg[0].nsg_id, 0)
-  source_type = "NETWORK_SECURITY_GROUP"
+  source      = var.wls_subnet_cidr
+  source_type = "CIDR_BLOCK"
   stateless   = false
 
   tcp_options {
@@ -138,8 +137,8 @@ resource "oci_core_network_security_group_security_rule" "wls_managed_egress_sec
   direction                 = "INGRESS"
   protocol                  = "6"
 
-  source      = element(module.network-compute-managed-nsg[0].nsg_id, 0)
-  source_type = "NETWORK_SECURITY_GROUP"
+  source      = var.wls_subnet_cidr
+  source_type = "CIDR_BLOCK"
   stateless   = false
 
   tcp_options {

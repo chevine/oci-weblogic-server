@@ -49,11 +49,11 @@ variable "public_key_path" {
 variable "wls_security_rules" {
   type = list(object({
     protocol = string
-    type = number
-    code = number
-    source = string
-    min_port  = number
-    max_port  = number
+    type     = number
+    code     = number
+    source   = string
+    min_port = number
+    max_port = number
   }))
   default     = []
   description = "Used to define the security rules for the WLS security list. The default is an empty list, which means no rules will be created. If you want to create rules, you can provide a list of objects with the following attributes: protocol, type, code, source, min_port, and max_port."
@@ -62,11 +62,37 @@ variable "wls_security_rules" {
 variable "bastion_security_rules" {
   type = list(object({
     protocol = string
-    type = number
-    code = number
-    source = string
-    min_port  = number
-    max_port  = number
+    type     = number
+    code     = number
+    source   = string
+    min_port = number
+    max_port = number
+  }))
+  default     = []
+  description = "Used to define the security rules for the bastion security list. The default is an empty list, which means no rules will be created. If you want to create rules, you can provide a list of objects with the following attributes: protocol, type, code, source, min_port, and max_port."
+}
+
+variable "lb_tcp_security_rules" {
+  type = list(object({
+    protocol = string
+    type     = number
+    code     = number
+    source   = string
+    min_port = number
+    max_port = number
+  }))
+  default     = []
+  description = "Used to define the security rules for the bastion security list. The default is an empty list, which means no rules will be created. If you want to create rules, you can provide a list of objects with the following attributes: protocol, type, code, source, min_port, and max_port."
+}
+
+variable "lb_udp_security_rules" {
+  type = list(object({
+    protocol = string
+    type     = number
+    code     = number
+    source   = string
+    min_port = number
+    max_port = number
   }))
   default     = []
   description = "Used to define the security rules for the bastion security list. The default is an empty list, which means no rules will be created. If you want to create rules, you can provide a list of objects with the following attributes: protocol, type, code, source, min_port, and max_port."

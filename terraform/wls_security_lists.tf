@@ -17,20 +17,29 @@ resource "oci_core_security_list" "wls_security_list" {
   }
 }
 
-/*
 data "oci_core_subnet" "existing_wls_subnet" {
-  depends_on = [module.network-wls-private-subnet]
-  subnet_id = var.wls_subnet_id
-} 
+  #  depends_on = [module.network-wls-private-subnet]
+  subnet_id = module.network-wls-private-subnet[0].subnet_id
+  #  compartment_id = var.network_compartment_id
+}
 
+data "oci_core_vcn" "existing_wls_vcn" {
+  vcn_id = local.vcn_id
+}
+
+/*
 resource "oci_core_subnet" "existing_wls_subnet" {
-#  depends_on = [module.network-wls-private-subnet]
-  depends_on = [oci_core_security_list.wls_security_list]
+  depends_on = [
+  oci_core_security_list.wls_security_list
+  ]
   vcn_id = local.vcn_id
   compartment_id = var.network_compartment_id
-  cidr_block = var.wls_subnet_cidr
 
-  security_list_ids = [oci_core_security_list.wls_security_list.id, oci_core_security_list.wls_security_list.id]
+#  cidr_block = var.wls_subnet_cidr
 
+  security_list_ids = [
+    data.oci_core_subnet.existing_wls_subnet.security_list_ids[0],
+    oci_core_security_list.wls_security_list.id
+    ]
 }
 */

@@ -1,0 +1,127 @@
+{
+    "vcn": {
+        "name": "RASDEV002-RAS_DEV_002_VCN",
+        "id": "ocid1.vcn.oc1.iad.amaaaaaa5sghbyiarqvjjruhzf6q33yektfhrk34mxjks32kt77li2ee2kdq",
+        "cidr_blocks": [
+            "10.0.0.0/16"
+        ]
+    },
+    "subnets": [
+        {
+            "name": "RASDEV002-mt-subnet",
+            "cidr": "10.0.4.0/24",
+            "id": "ocid1.subnet.oc1.iad.aaaaaaaarnfv5nsnn2xb2nwvbzyl7yf3wf4y22zk3suypfxl2zgqg7potzvq"
+        },
+        {
+            "name": "RASDEV002-bsubnet",
+            "cidr": "10.0.1.0/24",
+            "id": "ocid1.subnet.oc1.iad.aaaaaaaaf3yoswolwu6lwplkxoakbcttimejdwc5gscsqcizdcd6lx7a43xq"
+        },
+        {
+            "name": "RASDEV002-wl-subnet",
+            "cidr": "10.0.2.0/24",
+            "id": "ocid1.subnet.oc1.iad.aaaaaaaalbahmz7zwpnhu2aqeyucvtylrzk6q6zuvy4ouhzxfvp6ot7nsnuq"
+        },
+        {
+            "name": "RASDEV002-lbpubst1",
+            "cidr": "10.0.3.0/24",
+            "id": "ocid1.subnet.oc1.iad.aaaaaaaahloeri74zfgui6jv6jsmsjxo27fcwdakjcutwzopytuhtk6gpyla"
+        }
+    ],
+    "network_security_groups": [
+        {
+            "name": "RASDEV002-admin-server-nsg",
+            "id": "ocid1.networksecuritygroup.oc1.iad.aaaaaaaaoq4nmncvmxw5v4hl3oqmacxuy47v3xucc5jr5enfu3a2izespivq"
+        },
+        {
+            "name": "RASDEV002-lb-nsg",
+            "id": "ocid1.networksecuritygroup.oc1.iad.aaaaaaaa722sc32lm2o7pmrpdrtxn3cz23ate7mbkabfc72dhu43fdencr5q"
+        },
+        {
+            "name": "RASDEV002-mount-target-nsg",
+            "id": "ocid1.networksecuritygroup.oc1.iad.aaaaaaaaq2yuxiem36ekx2ku5weyxsnh2grhgxwvqweub2yzr57jqixxcqkq"
+        },
+        {
+            "name": "RASDEV002-managed-server-nsg",
+            "id": "ocid1.networksecuritygroup.oc1.iad.aaaaaaaagpa6voakxoyrn77fsvm3opkilkgietlkbtxpj2opraape54ykvga"
+        },
+        {
+            "name": "RASDEV002-bastion-nsg",
+            "id": "ocid1.networksecuritygroup.oc1.iad.aaaaaaaarclpvnzq3q756lezcnncp43bdeyhhvf3jdy4zojrtkc3uagdvdla"
+        }
+    ],
+    "route_tables": [
+        {
+            "name": "RASDEV002-sg-routetable",
+            "id": "ocid1.routetable.oc1.iad.aaaaaaaayytgfvk5vh2ygwomvzn3rov2r24eg6u3plqvro2psrjje5nvmqoa",
+            "route_count": 1
+        },
+        {
+            "name": "RASDEV002-ig-routetable",
+            "id": "ocid1.routetable.oc1.iad.aaaaaaaawesnjyjeuhu6hqt65wnm6z4gbs65vbzsihafl334c773z6dg5aka",
+            "route_count": 1
+        },
+        {
+            "name": "Default Route Table for RASDEV002-RAS_DEV_002_VCN",
+            "id": "ocid1.routetable.oc1.iad.aaaaaaaa3jdqqhd3owk4a5lxiwjl75j7k7mdjcqm6xgd6w37gduwlnypmbua",
+            "route_count": 0
+        }
+    ],
+    "security_lists": [
+        {
+            "name": "RAS_DEV_002_VCN-wls-security-list",
+            "id": "ocid1.securitylist.oc1.iad.aaaaaaaaszempgmxqtf73kvmmmtdbx53zjgllapucqnsqfapm4643t33kz3a",
+            "ingress_rules": 1,
+            "egress_rules": 0
+        },
+        {
+            "name": "RAS_DEV_002_VCN-bastion-security-list",
+            "id": "ocid1.securitylist.oc1.iad.aaaaaaaanzmqab24siio75sjbr435s5tlfhp542va4ogws2c2ksqjof5ueuq",
+            "ingress_rules": 1,
+            "egress_rules": 0
+        },
+        {
+            "name": "Default Security List for RASDEV002-RAS_DEV_002_VCN",
+            "id": "ocid1.securitylist.oc1.iad.aaaaaaaa2zif73yssrgbt54pxleie2xdolicicxaq6s6hyfxyugkkn4g33oa",
+            "ingress_rules": 3,
+            "egress_rules": 1
+        }
+    ],
+    "instances": [
+        {
+            "name": "RASDEV002-bastion-instance",
+            "id": "ocid1.instance.oc1.iad.anuwcljs5sghbyic2ylckkgpgw4z4gsxeweffo3k7iqigmzupwglebkgptxa",
+            "shape": "VM.Standard2.1",
+            "state": "STOPPED",
+            "vnics": [
+                {
+                    "name": "RASDEV002-bastion-instance",
+                    "private_ip": "10.0.1.203",
+                    "public_ip": "129.158.34.114",
+                    "subnet": "RASDEV002-bsubnet",
+                    "nsgs": [
+                        "RASDEV002-bastion-nsg"
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "RASDEV002-wls-0",
+            "id": "ocid1.instance.oc1.iad.anuwcljs5sghbyicflitdp3ipoqffsgeh3vjdv57tsmntz5o4b4e65kapfma",
+            "shape": "VM.Standard.E4.Flex",
+            "state": "STOPPED",
+            "vnics": [
+                {
+                    "name": "primaryvnic",
+                    "private_ip": "10.0.2.43",
+                    "public_ip": null,
+                    "subnet": "RASDEV002-wl-subnet",
+                    "nsgs": [
+                        "RASDEV002-admin-server-nsg",
+                        "RASDEV002-managed-server-nsg"
+                    ]
+                }
+            ]
+        }
+    ]
+}
