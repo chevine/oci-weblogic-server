@@ -1,5 +1,6 @@
 resource "oci_core_network_security_group_security_rule" "fss_ingress_security_rule_1" {
-  network_security_group_id = element(module.network-compute-managed-nsg[0].nsg_id, 0)
+#  network_security_group_id = element(module.network-compute-managed-nsg[0].nsg_id, 0)
+  network_security_group_id = element(module.network-mount-target-nsg[0].nsg_id, 0)
   direction                 = "INGRESS"
   protocol                  = "17"
 

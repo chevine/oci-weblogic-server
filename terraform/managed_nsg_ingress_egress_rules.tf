@@ -37,6 +37,11 @@ resource "oci_core_network_security_group_security_rule" "wls_managed_ingress_se
   stateless   = false
 
   tcp_options {
+    source_port_range {
+      min = 9071
+      max = 9072
+    }
+
     destination_port_range {
       min = 9071
       max = 9072
