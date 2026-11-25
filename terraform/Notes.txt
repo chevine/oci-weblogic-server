@@ -6,12 +6,15 @@ page 42
 # Create a confidential application
 https://docs.oracle.com/en/learn/apex-identitydomains-sso/index.html#introduction
 
-ssh-keygen -t rsa -b 4096 -f ras_dev_rsa
+ssh-keygen -t rsa -b 2048 -f ras_dev_002_rsa.pem
 choco upgrade terraform -y
 
 
 pip install oci-cli --upgrade
 pip install oci --upgrade
+
+ssh -i ~/.oci/ras_dev_002/ras_dev_002_rsa.pem opc@129.80.73.149
+ssh -i ~/.oci/ras_dev_002/ras_dev_002_rsa.pem -J opc@129.80.73.149 opc@10.0.2.97
 
 ==============================================================================================
 The primary OCI Python SDK documentation links are:
@@ -45,18 +48,18 @@ export COMPARTMENT_OCID=ocid1.compartment.oc1..aaaaaaaagzr3ea6uoge33lawdcrrwye3g
 export Autonomous_DB_OCID=ocid1.autonomousdatabase.oc1.iad.anuwcljs5sghbyiaeuvrqqccin7p4bdwss52425ry6aufpfmlqh6velwlgxq
 
 
-export Bastion_Host_IP=10.0.1.228
+export Bastion_Host_IP=10.0.1.76
 
-export Bastion_Subnet_OCID=ocid1.subnet.oc1.iad.aaaaaaaa3e6ypbk6hhq6vcp4hdwxrbkenimdraioavnmki5ddevmdk754tqq
-export Load_Balancer_Subnet_OCID=ocid1.subnet.oc1.iad.aaaaaaaahki4ieb6jkpymi2omq3nvbjpvezxqd4bsfueaikspeyp7d5k67bq
+export Bastion_Subnet_OCID=ocid1.subnet.oc1.iad.aaaaaaaagau7tpnkzdfkieknxwph72qqyyaldpn7gfzbdtcvq553xak56uza
+export Load_Balancer_Subnet_OCID=ocid1.subnet.oc1.iad.aaaaaaaaltujc4ogtzxtjtdj5vheg26lynhrsk4u5c35kfj7vkqn2kwnq2ha
+export WLS_Subnet_OCID=ocid1.subnet.oc1.iad.aaaaaaaaha6ym5kaqmjrbbkccl47qfzub4m5bfuxquatl2t6tdzty33mh6eq
 export Load_Balancer_Subnet1_OCID=${Load_Balancer_Subnet_OCID}
-export WLS_Subnet_OCID=ocid1.subnet.oc1.iad.aaaaaaaay5jta56j5cy7g5kkzul363wuzm756z4feaq33pr4jojvvuphokhq
 
-export OCID_of_NSG_for_Admin_Server=ocid1.networksecuritygroup.oc1.iad.aaaaaaaadicttr6jp4jfqdihjtswykuvhzgxeeajldlkmh3iawkq6yk7ax2q
-export OCID_of_NSG_for_Bastion=ocid1.networksecuritygroup.oc1.iad.aaaaaaaa6vqha5sq7wl5pluufifcr2tem7ybms5crncizf2gpbptua4xtqqq
-export OCID_of_NSG_for_Load_Balancer=ocid1.networksecuritygroup.oc1.iad.aaaaaaaaajsykwi5js3vevk3gum5hwdfhurqs73p7y7fx5me5rq6vfnlvxcq
-export OCID_of_NSG_for_Managed_Server=ocid1.networksecuritygroup.oc1.iad.aaaaaaaacfq64by2pkckxgv56m7yey75zmspp5gviwvxdfmt47r36sgopzda
-export OCID_of_NSG_for_File_System_Storage=ocid1.networksecuritygroup.oc1.iad.aaaaaaaa43xozbwqyztcrgemgqhb4z4fhfh2d2df7gpohvxhipjcixtcuuva
+export OCID_of_NSG_for_Admin_Server=ocid1.networksecuritygroup.oc1.iad.aaaaaaaaudwxhubvhljx5dmeachfppgmjlfojzkr6dqmsmkbaguqjach4coq
+export OCID_of_NSG_for_Bastion=ocid1.networksecuritygroup.oc1.iad.aaaaaaaavsqsax67vepiwhlibkckijsceaju3hknfdb66u27kkcl2qdeq6cq
+export OCID_of_NSG_for_Load_Balancer=ocid1.networksecuritygroup.oc1.iad.aaaaaaaayiylshogjtfhnmo54cmjht6jkxndobnchpmv6bnyvzsy7mg33j2a
+export OCID_of_NSG_for_Managed_Server=ocid1.networksecuritygroup.oc1.iad.aaaaaaaaw4gv6mdtyhvdvtshe3pfmegzgdk7echlwolaqgteiihyuewrwoha
+export OCID_of_NSG_for_File_System_Storage=ocid1.networksecuritygroup.oc1.iad.aaaaaaaahigreokdrqgxabcacwpxvu6vp3inkpmtnevrrvjvtfcdlomg6dta
 
 export external_WLS_LB_Port=443
 

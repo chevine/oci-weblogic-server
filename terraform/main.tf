@@ -601,6 +601,7 @@ module "observability-osmh" {
   tenancy_id     = var.tenancy_ocid
   display_name   = local.profile_name
   compartment_id = local.profile_compartment_id
+#  os_family       = "ORACLE_LINUX_9"
 }
 
 module "compute" {
